@@ -40,7 +40,7 @@ var paths = {
     ],
     vendorScripts: 'app/js/vendors/**/*.js',
     watchScripts: 'app/js/**/*.js',
-    images: 'app/img/**/*',
+    images: 'app/images/**/*',
     pictures: 'app/pic/**/*',
     php: 'app/php/**/*',
     fonts: 'app/fonts/**/*'
@@ -114,7 +114,7 @@ gulp.task( 'scripts', function () {
 gulp.task('images', function() {
     return gulp.src(paths.images)
         .pipe(imagemin({optimizationLevel: 5}))
-        .pipe(gulp.dest('dist/img'));
+        .pipe(gulp.dest('dist/images'));
 });
 
 gulp.task('pictures', function() {

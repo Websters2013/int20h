@@ -13,24 +13,26 @@
 
         //private properties
         var _obj = obj,
-            _btn = _obj.find( '.tvShow__btn' ),
-            _langSelect = _obj.find( '.tvShow__lang' ),
+            _langSelect = $( '.tvShow-lang select' ),
+            _objDateTitle = _obj.find( '.tvShow__date' ),
             _date = $( '.tvShow-date' ),
             _lang = _langSelect.val(),
-            _myVKID = 153318495;
+            _myVKID = 153318495,
+            _siteTitle = $( '.site__title' );
 
         //private methods
         var _addEvents = function() {
 
-                _btn.on({
-                    'click': function() {
+                _date.on({
+                    'change': function() {
                         _sendAjax();
                     }
                 });
 
                 _langSelect.on({
                     'change': function() {
-                        _lang = $(this).val();
+                        _lang = $( this ).val();
+                        _sendAjax();
                     }
                 });
 
@@ -42,54 +44,60 @@
 
                 $.ajax({
                     url: 'https://api.ovva.tv/v2/' + _lang + '/tvguide/' + channel + '/' + day,
-                    data: {
-
-                    },
                     dataType: 'json',
                     type: "get",
-                    success: function (msg) {
-                        $( '.tvShow__list > *' ).remove();
-                        console.log(msg)
+                    success: function ( msg ) {
 
-                        var lengthTVShow = msg.data.programs.length;
+                        if ( msg.error ) {
+                            alert( msg.error )
+                        } else {
+                            var dateArray = _date.val().split('-');
 
-                        for ( var i = 0; i < lengthTVShow; i++ ) {
-                            var timestamp = msg.data.programs[i].realtime_begin*1000,
-                                subtitle = msg.data.programs[i].subtitle,
-                                title = msg.data.programs[i].title,
-                                TVdate = new Date( timestamp ),
-                                hours = TVdate.getHours(),
-                                minutes = TVdate.getMinutes(),
+                            _objDateTitle.text( dateArray[2] + '.' + dateArray[1] + '.' + dateArray[0] );
+                            $( '.tvShow__list > *' ).remove();
+
+                            _siteTitleChange();
+
+                            var lengthTVShow = msg.data.programs.length;
+
+                            for ( var i = 0; i < lengthTVShow; i++ ) {
+                                var timestamp = msg.data.programs[i].realtime_begin*1000,
+                                    subtitle = msg.data.programs[i].subtitle,
+                                    title = msg.data.programs[i].title,
+                                    TVdate = new Date( timestamp ),
+                                    hours = TVdate.getHours(),
+                                    minutes = TVdate.getMinutes(),
+                                    isOnTheAir = '';
+
+                                if ( hours < 10 ) {
+                                    hours = '0' + hours;
+                                }
+
+                                if ( minutes < 10 ) {
+                                    minutes = '0' + minutes;
+                                }
+
+                                if ( msg.data.programs[i].is_on_the_air ) {
+                                    isOnTheAir = 'active'
+                                }
+
+                                result.append( '<div class="tvShow__item ' + isOnTheAir + '">' +
+                                    '<img class="tvShow__item-thumbnail" src="' + msg.data.programs[i].image.preview + '" alt="">' +
+                                    '<div class="tvShow__item-description">' +
+                                    '<strong class="tvShow__item-time">' + hours + ':' + minutes + '</strong>' +
+                                    '<span class="tvShow__item-title">' + title + '</span>' +
+                                    '<span class="tvShow__item-subtitle">' + subtitle + '</span>' +
+                                    '</div>' +
+                                    '</div>' );
+
                                 isOnTheAir = '';
-
-                            if ( hours < 10 ) {
-                                hours = '0' + hours;
                             }
-
-                            if ( minutes < 10 ) {
-                                minutes = '0' + minutes;
-                            }
-
-                            if ( msg.data.programs[i].is_on_the_air ) {
-                                isOnTheAir = 'active'
-                            }
-
-                            result.append( '<div class="tvShow__item ' + isOnTheAir + '">' +
-                                '<img class="tvShow__item-thumbnail" src="' + msg.data.programs[i].image.preview + '" alt="">' +
-                                '<div class="tvShow__item-description">' +
-                                '<strong class="tvShow__item-time">' + hours + ':' + minutes + '</strong>' +
-                                '<span class="tvShow__item-title">' + title + '</span>' +
-                                '<span class="tvShow__item-subtitle">' + subtitle + '</span>' +
-                                '</div>' +
-                                '</div>' );
-
-                            isOnTheAir = '';
                         }
 
                     },
-                    error: function (XMLHttpRequest) {
-                        if (XMLHttpRequest.statusText != "abort") {
-                            //alert("ERROR!!!");
+                    error: function ( XMLHttpRequest ) {
+                        if ( XMLHttpRequest.statusText != "abort" ) {
+                            alert( "ERROR!!!" );
                         }
                     }
                 });
@@ -100,18 +108,32 @@
                     message: myPost
                 } );
             },
+            _siteTitleChange = function() {
+
+                switch ( _lang ) {
+                    case 'ua':
+                        _siteTitle.text( 'TV програма' );
+                        break;
+                    case 'ru':
+                        _siteTitle.text( 'TV программа' );
+                        break;
+                    default:
+                        break;
+                }
+            },
             _initVK = function() {
                 VK.init({
                     apiId: _myVKID
                 });
             },
             _initDatePicker = function() {
-                _date.datepicker({ dateFormat: 'yy-mm-dd' });
+                _date.datepicker({ dateFormat: 'yy-mm-dd' }).datepicker( "setDate", new Date());
             },
             _init = function() {
                 _addEvents();
                 _initDatePicker();
                 _initVK();
+                _siteTitleChange();
             };
 
         //public properties

@@ -1,14 +1,27 @@
 .site {
-  @include justify;
-  background: #f4f5f6;
+  max-width: 1400px;
+  margin: 0 auto;
   @include main-font1();
   color: #3e3e3e;
+
+  &:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 90px;
+    z-index: 1;
+    background: #fff;
+    content: '';
+  }
 
   &__header {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    position: relative;
     height: 90px;
+    z-index: 2;
     padding: 0 100px;
     background: #fff;
 
@@ -25,9 +38,44 @@
   }
 
   &__content {
-    max-width: 1400px;
-    margin: 0 auto;
+    margin: 0 100px;
+    min-height: calc(100vh - 180px);
+    padding: 0 50px;
     background: #fff;
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    height: 90px;
+    z-index: 2;
+    padding: 0 100px;
+    color: #aeaeae;
+    background: #3e3e3e;
+
+    &:before {
+      position: absolute;
+      bottom: 0;
+      right: 100%;
+      width: 100vw;
+      height: 90px;
+      z-index: 1;
+      background: #3e3e3e;
+      content: '';
+    }
+
+    &:after {
+      position: absolute;
+      bottom: 0;
+      left: 100%;
+      width: 100vw;
+      height: 90px;
+      z-index: 1;
+      background: #3e3e3e;
+      content: '';
+    }
   }
 }
 @media (min-width: $phone-landscape) {

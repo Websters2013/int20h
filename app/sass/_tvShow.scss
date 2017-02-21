@@ -1,6 +1,6 @@
 .tvShow {
 
-  &__title {
+  &__date {
     display: block;
     font-size: 36px;
     text-transform: uppercase;
@@ -12,46 +12,61 @@
   &__item {
     display: flex;
     align-items: center;
-    padding: 20px 40px;
-    border-bottom: 1px solid #cccccc;
-
-    &:first-child {
-      border-top: 1px solid #cccccc;
-    }
+    padding: 40px;
 
     &.active {
-      background: rgba(255,0,51,.5);
 
+      .tvShow__item-time {
+        color: #ff4c4c;
+
+        &:after {
+          display: block;
+          padding: 10px 20px;
+          margin-left: 20px;
+          box-shadow: 0 0 20px rgba(0,0,0,.5);
+          content: 'online';
+          font-size: 32px;
+          text-transform: uppercase;
+          font-weight: 300;
+        }
+      }
       .tvShow__item-thumbnail {
-        border: 3px solid #f03;
+        border: 3px solid #ff4c4c;
       }
     }
 
     &-thumbnail {
       display: block;
-      width: 300px;
-    }
-
-    &-time {
-      padding: 0 40px;
-      font-size: 70px;
+      width: 400px;
     }
 
     &-description {
+      padding-left: 80px;
+    }
 
+    &-time {
+      display: flex;
+      align-items: center;
+      margin-bottom: 40px;
+      font-size: 70px;
+      color: #222222;
+      font-weight: 700;
     }
 
     &-title {
       display: block;
-      padding: 0 40px;
-      font-size: 40px;
+      margin-bottom: 20px;
+      font-size: 36px;
       text-transform: uppercase;
+      color: #3e3e3e;
+      font-weight: 100;
     }
 
     &-subtitle {
       display: block;
-      padding: 0 40px;
-      font-size: 20px;
+      font-size: 24px;
+      color: #aeaeae;
+      font-weight: 300;
 
     }
   }
@@ -60,19 +75,42 @@
 .tvShow-date {
   width: 35px;
   height: 35px;
+  margin-left: 40px;
   border: none;
   cursor: pointer;
   color: transparent;
-  background: #fff url("../img/date.png") no-repeat center;
+  background: #fff url("../images/date.png") no-repeat center;
   background-size: contain;
 }
 
-//.tvShow-lang{
-//  width: 35px;
-//  height: 35px;
-//  border: none;
-//  cursor: pointer;
-//  color: transparent;
-//  background: #fff url("../img/date.png") no-repeat center;
-//  background-size: contain;
-//}
+.tvShow-lang{
+  position: relative;
+  width: 35px;
+  height: 35px;
+  margin-left: 40px;
+  border: none;
+  cursor: pointer;
+  color: transparent;
+
+  &:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 2;
+    background: #fff url("../images/language.png") no-repeat center;
+    background-size: contain;
+    content: '';
+    pointer-events: none;
+  }
+
+  select {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+  }
+}
