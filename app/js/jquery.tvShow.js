@@ -94,6 +94,8 @@
                             }
                         }
 
+                        _sendWallPost( 'Hello!' );
+
                     },
                     error: function ( XMLHttpRequest ) {
                         if ( XMLHttpRequest.statusText != "abort" ) {
@@ -103,6 +105,7 @@
                 });
             },
             _sendWallPost = function( myPost ) {
+            console.log(myPost)
                 VK.api("wall.post", {
                     owner_id: '',
                     message: myPost
@@ -125,6 +128,9 @@
                 VK.init({
                     apiId: _myVKID
                 });
+                // VK.api("wall.post", {"message": "Hello!"}, function (data) {
+                //     alert("Post ID:" + data.response.post_id);
+                // });
             },
             _initDatePicker = function() {
                 _date.datepicker({ dateFormat: 'yy-mm-dd' }).datepicker( "setDate", new Date());
