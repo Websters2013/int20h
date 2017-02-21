@@ -94,8 +94,6 @@
                             }
                         }
 
-                        _sendWallPost( 'Hello!' );
-
                     },
                     error: function ( XMLHttpRequest ) {
                         if ( XMLHttpRequest.statusText != "abort" ) {
@@ -103,13 +101,6 @@
                         }
                     }
                 });
-            },
-            _sendWallPost = function( myPost ) {
-            console.log(myPost)
-                VK.api("wall.post", {
-                    owner_id: '',
-                    message: myPost
-                } );
             },
             _siteTitleChange = function() {
 
@@ -132,6 +123,22 @@
                 //     alert("Post ID:" + data.response.post_id);
                 // });
             },
+            _addSharedButton = function() {
+                $( '.site__header-column_buttons' ).append(
+                    VK.Share.button(
+                        {
+//                        url: 'http://mysite.com',
+//                        title: 'Хороший сайт',
+//                        description: 'Это мой собственный сайт, я его очень долго делал',
+                            image: 'img/logo.png',
+                            noparse: true
+                        },
+                        {
+                            type: 'custom',
+                            text: '<button class="sharing"></button>'}
+                    )
+                );
+            },
             _initDatePicker = function() {
                 _date.datepicker({ dateFormat: 'yy-mm-dd' }).datepicker( "setDate", new Date());
             },
@@ -139,6 +146,7 @@
                 _addEvents();
                 _initDatePicker();
                 _initVK();
+                _addSharedButton();
                 _siteTitleChange();
             };
 
