@@ -1,16 +1,53 @@
 .tvShow {
 
+  &__title {
+    display: block;
+    padding: 40px;
+    margin-bottom: 40px;
+    font-size: 100px;
+    text-transform: uppercase;
+    text-align: center;
+    color: #fff;
+    background: #000000;
+  }
+
   &__item {
     display: flex;
     align-items: center;
-  }
+    padding: 20px 40px;
+    border-bottom: 1px solid #cccccc;
 
-  &__item img {
-    display: block;
-    width: 300px;
-  }
+    &:first-child {
+      border-top: 1px solid #cccccc;
+    }
 
-  &__item div span {
-    display: block;
+    &-thumbnail {
+      display: block;
+      width: 300px;
+    }
+
+    &-time {
+      width: 200px;
+      padding: 0 40px;
+      font-size: 70px;
+    }
+
+    &-description {
+
+    }
+
+    &-title {
+      display: block;
+      padding: 0 40px;
+      font-size: 40px;
+      text-transform: uppercase;
+    }
+
+    &-subtitle {
+      display: block;
+      padding: 0 40px;
+      font-size: 20px;
+
+    }
   }
 }
