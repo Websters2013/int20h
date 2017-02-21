@@ -18,6 +18,7 @@
             _date = $( '.tvShow-date' ),
             _lang = _langSelect.val(),
             _myVKID = 153318495,
+            _sharingImage = 'img/logo.png',
             _siteTitle = $( '.site__title' );
 
         //private methods
@@ -130,7 +131,7 @@
 //                        url: 'http://mysite.com',
 //                        title: 'Хороший сайт',
 //                        description: 'Это мой собственный сайт, я его очень долго делал',
-                            image: 'img/logo.png',
+                            image: _sharingImage,
                             noparse: true
                         },
                         {
