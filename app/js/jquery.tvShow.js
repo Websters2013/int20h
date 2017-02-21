@@ -15,6 +15,7 @@
         var _obj = obj,
             _btn = _obj.find( '.tvShow__btn' ),
             _langSelect = _obj.find( '.tvShow__lang' ),
+            _date = _obj.find( '.tvShow__date' ),
             _lang = _langSelect.val(),
             _myVKID = 153318495;
 
@@ -36,11 +37,11 @@
             },
             _sendAjax = function() {
                 var channel = '1plus1',
-                    day = '2017-02-21',
+                    day = _date.val(),
                     result = $( '.tvShow__list' );
 
                 $.ajax({
-                    url: 'https://api.ovva.tv/v2/' + _lang + '/tvguide/' + channel + '/',
+                    url: 'https://api.ovva.tv/v2/' + _lang + '/tvguide/' + channel + '/' + day,
                     data: {
 
                     },
@@ -97,8 +98,12 @@
                     apiId: _myVKID
                 });
             },
+            _initDatePicker = function() {
+                _date.datepicker({ dateFormat: 'yy-mm-dd' });
+            },
             _init = function() {
                 _addEvents();
+                _initDatePicker();
                 _initVK();
             };
 
