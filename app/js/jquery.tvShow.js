@@ -15,7 +15,7 @@
         var _obj = obj,
             _btn = _obj.find( '.tvShow__btn' ),
             _langSelect = _obj.find( '.tvShow__lang' ),
-            _date = _obj.find( '.tvShow__date' ),
+            _date = $( '.tvShow-date' ),
             _lang = _langSelect.val(),
             _myVKID = 153318495;
 
@@ -54,31 +54,38 @@
                         var lengthTVShow = msg.data.programs.length;
 
                         for ( var i = 0; i < lengthTVShow; i++ ) {
-                            var time = msg.data.programs[i].realtime_begin,
+                            var timestamp = msg.data.programs[i].realtime_begin*1000,
                                 subtitle = msg.data.programs[i].subtitle,
                                 title = msg.data.programs[i].title,
-                                TVdate = new Date(msg.data.date),
-                                dateMsec = TVdate.getTime()/1000,
-                                hours = Math.floor((time - dateMsec)/2400),
-                                minutes = (time - dateMsec - hours*2400)/40;
+                                TVdate = new Date( timestamp ),
+                                hours = TVdate.getHours(),
+                                minutes = TVdate.getMinutes(),
+                                isOnTheAir = '';
 
-                            result.append( '<div class="tvShow__item">' +
-                                '<strong class="tvShow__item-time">' + hours + ':' + minutes + '</strong>' +
+                            if ( hours < 10 ) {
+                                hours = '0' + hours;
+                            }
+
+                            if ( minutes < 10 ) {
+                                minutes = '0' + minutes;
+                            }
+
+                            if ( msg.data.programs[i].is_on_the_air ) {
+                                isOnTheAir = 'active'
+                            }
+
+                            result.append( '<div class="tvShow__item ' + isOnTheAir + '">' +
                                 '<img class="tvShow__item-thumbnail" src="' + msg.data.programs[i].image.preview + '" alt="">' +
-                                '<div class="tvShow__item-description"><span class="tvShow__item-title">' + title + '</span>' +
-                                '<span class="tvShow__item-subtitle">' + subtitle + '</span></div>' +
-                                '' +
-                                '' +
-                                '' +
-                                '' +
-                                '' +
-                                '' +
-                                '' +
-                                '' +
+                                '<div class="tvShow__item-description">' +
+                                '<strong class="tvShow__item-time">' + hours + ':' + minutes + '</strong>' +
+                                '<span class="tvShow__item-title">' + title + '</span>' +
+                                '<span class="tvShow__item-subtitle">' + subtitle + '</span>' +
+                                '</div>' +
                                 '</div>' );
+
+                            isOnTheAir = '';
                         }
 
-                        // sendwallpost( ( '.tvShow__list' ) );
                     },
                     error: function (XMLHttpRequest) {
                         if (XMLHttpRequest.statusText != "abort") {

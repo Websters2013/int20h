@@ -5,6 +5,12 @@
   font-style: normal;
 }
 
+@mixin main-font2() {
+  font-family: "myriadpro-regular", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
 @mixin justify() {
   text-align: justify;
 

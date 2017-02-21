@@ -1,6 +1,34 @@
 .site {
   @include justify;
+  background: #f4f5f6;
+  @include main-font1();
+  color: #3e3e3e;
 
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 90px;
+    padding: 0 100px;
+    background: #fff;
+
+    &-column {
+      display: flex;
+      align-items: center;
+
+      h1 {
+        padding: 0 20px;
+        font-weight: 900;
+        font-size: 24px;
+      }
+    }
+  }
+
+  &__content {
+    max-width: 1400px;
+    margin: 0 auto;
+    background: #fff;
+  }
 }
 @media (min-width: $phone-landscape) {
   .site {
