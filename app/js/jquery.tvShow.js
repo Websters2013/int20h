@@ -18,7 +18,7 @@
             _date = $( '.tvShow-date' ),
             _lang = _langSelect.val(),
             _myVKID = 153318495,
-            _sharingImage = 'img/logo.png',
+            _sharingImage = 'http://mysite.com/mypic.jpg',
             _siteTitle = $( '.site__title' );
 
         //private methods
@@ -33,6 +33,8 @@
                 _langSelect.on({
                     'change': function() {
                         _lang = $( this ).val();
+
+                        $( this ).parent().find( 'span' ).text( _lang );
                         _sendAjax();
                     }
                 });
@@ -128,9 +130,9 @@
                 $( '.site__header-column_buttons' ).append(
                     VK.Share.button(
                         {
-//                        url: 'http://mysite.com',
-//                        title: 'Хороший сайт',
-//                        description: 'Это мой собственный сайт, я его очень долго делал',
+                            // url: 'http://mysite.com',
+                            title: '1+1 program',
+                            description: 'Программа телепередач на сегодня',
                             image: _sharingImage,
                             noparse: true
                         },

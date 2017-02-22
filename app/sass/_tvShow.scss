@@ -87,6 +87,7 @@
   position: relative;
   width: 35px;
   height: 35px;
+  padding: 0;
   margin-left: 40px;
   border: none;
   cursor: pointer;
@@ -112,5 +113,16 @@
     height: 100%;
     width: 100%;
     z-index: 1;
+  }
+
+  span {
+    position: relative;
+    display: block;
+    z-index: 3;
+    text-transform: uppercase;
+    color: #000;
+    font-size: 14px;
+    background: #fff;
+    pointer-events: none;
   }
 }
