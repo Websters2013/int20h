@@ -1,7 +1,9 @@
 .tvShow {
-  width: 600px;
-  margin: 0 auto;
   background: #fff;
+
+  &__list {
+    column-count: 2;
+  }
 
   &__date {
     display: block;
