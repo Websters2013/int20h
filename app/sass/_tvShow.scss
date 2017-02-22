@@ -3,6 +3,8 @@
 
   &__list {
     column-count: 2;
+    border-top: 1px solid #f4f5f6;
+    border-bottom: 1px solid #f4f5f6;
   }
 
   &__date {
@@ -18,10 +20,10 @@
   &__item {
     display: flex;
     align-items: center;
-    padding: 20px 60px;
+    height: 100px;
+    padding: 10px 20px;
+    border-top: 1px solid #f4f5f6;
     border-bottom: 1px solid #f4f5f6;
-
-    &:first-child { border-top: 1px solid #f4f5f6 }
 
     &.active {
 
