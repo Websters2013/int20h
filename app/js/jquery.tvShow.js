@@ -15,6 +15,7 @@
         var _obj = obj,
             _langSelect = $( '.tvShow-lang select' ),
             _objDateTitle = _obj.find( '.tvShow__date' ),
+            _tvProgram = _obj.find( '.tvShow__list' ),
             _date = $( '.tvShow-date' ),
             _lang = _langSelect.val(),
             _myVKID = 153318495,
@@ -39,6 +40,57 @@
                     }
                 });
 
+
+                $( '.tvShow__title' ).on( {
+                    click: function () {
+                        console.log(1000);
+                        _makePrint();
+                    }
+                } );
+
+            },
+            _constructor = function() {
+                _addEvents();
+                _initDatePicker();
+                _initVK();
+                _siteTitleChange();
+            },
+            _initDatePicker = function() {
+                _date.datepicker({ dateFormat: 'yy-mm-dd' });
+            },
+            _initVK = function() {
+                VK.init({
+                    apiId: _myVKID
+                });
+            },
+            _makePrint = function () {
+
+                html2canvas( _tvProgram[ 0 ], {
+                    onrendered: function( canvas ) {
+
+                        console.log( canvas.toDataURL() );
+
+                        $( 'body' ).append( '<img src="' + canvas.toDataURL()  + '">' );
+
+                        // self.cartImg = $( '<div class="cart-img"><img src="' + canvas.toDataURL()  + '"></div>' );
+                        // self.cartImg.css( {
+                        //     top: list.offset().top,
+                        //     left:list.offset().left
+                        // } );
+                        // $( 'body' ).append( self.cartImg );
+                        //
+                        // $( 'body, html' ).scrollTop( curScroll );
+                        // self.cartImg.fadeTo(300,1, function(){
+                        //     list.find( 'li > *' ).remove();
+                        //     if( check ){
+                        //         moveImg();
+                        //     } else {
+                        //         check = true;
+                        //     }
+                        // } );
+                    }
+
+                });
             },
             _sendAjax = function() {
                 var channel = '1plus1',
@@ -118,14 +170,6 @@
                         break;
                 }
             },
-            _initVK = function() {
-                VK.init({
-                    apiId: _myVKID
-                });
-                // VK.api("wall.post", {"message": "Hello!"}, function (data) {
-                //     alert("Post ID:" + data.response.post_id);
-                // });
-            },
             _addSharedButton = function() {
                 $( '.site__header-column_buttons' ).append(
                     VK.Share.button(
@@ -141,23 +185,13 @@
                             text: '<button class="sharing"></button>'}
                     )
                 );
-            },
-            _initDatePicker = function() {
-                _date.datepicker({ dateFormat: 'yy-mm-dd' }).datepicker( "setDate", new Date());
-            },
-            _init = function() {
-                _addEvents();
-                _initDatePicker();
-                _initVK();
-                _addSharedButton();
-                _siteTitleChange();
             };
 
         //public properties
 
         //public methods
 
-        _init();
+        _constructor();
     };
 
 } )();
