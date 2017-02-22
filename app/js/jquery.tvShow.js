@@ -17,12 +17,50 @@
             _objDateTitle = _obj.find( '.tvShow__date' ),
             _date = $( '.tvShow-date' ),
             _lang = _langSelect.val(),
-            _myVKID = 153318495,
+            _myVKID = 140835687,
             _sharingImage = 'http://mysite.com/mypic.jpg',
             _siteTitle = $( '.site__title' );
 
         //private methods
         var _addEvents = function() {
+
+                $('.tvShow-sharing').on({
+                    'click': function() {
+                        // VK.api('photos.getWallUploadServer', {
+                        //     uid: _myVKID
+                        // }, function (data) {
+                        //     if (data.response) {
+                        //         $.post('/upload/', {  // url на ВАШЕМ сервере, который будет загружать изображение на сервер контакта (upload_url)
+                        //             upload_url: data.response.upload_url,
+                        //             // image: image,
+                        //         }, function (json) {
+                        //             VK.api("photos.saveWallPhoto", {
+                        //                 server: json.server,
+                        //                 photo: json.photo,
+                        //                 hash: json.hash,
+                        //                 uid: _myVKID
+                        //             }, function (data) {
+                        //                 VK.api('wall.post', {
+                        //                     message: 'Hello!',
+                        //                     attachments: data.response['0'].id
+                        //                 });
+                        //             });
+                        //         }, 'json');
+                        //     }
+                        // });
+                        VK.api("wall.post", {
+                            owner_id: '-140835687',
+                            message: 'Hello'
+                        }, function (data) {
+                            console.log(data)
+                        });
+                        console.log(1)
+
+                        // Dev.methodRun('1487755447:163e85bbd3c5eeac41', this);
+
+                        return false;
+                    }
+                });
 
                 _date.on({
                     'change': function() {
@@ -85,9 +123,9 @@
                                 }
 
                                 result.append( '<div class="tvShow__item ' + isOnTheAir + '">' +
+                                    '<strong class="tvShow__item-time">' + hours + ':' + minutes + '</strong>' +
                                     '<img class="tvShow__item-thumbnail" src="' + msg.data.programs[i].image.preview + '" alt="">' +
                                     '<div class="tvShow__item-description">' +
-                                    '<strong class="tvShow__item-time">' + hours + ':' + minutes + '</strong>' +
                                     '<span class="tvShow__item-title">' + title + '</span>' +
                                     '<span class="tvShow__item-subtitle">' + subtitle + '</span>' +
                                     '</div>' +
@@ -122,9 +160,6 @@
                 VK.init({
                     apiId: _myVKID
                 });
-                // VK.api("wall.post", {"message": "Hello!"}, function (data) {
-                //     alert("Post ID:" + data.response.post_id);
-                // });
             },
             _addSharedButton = function() {
                 $( '.site__header-column_buttons' ).append(
@@ -149,7 +184,7 @@
                 _addEvents();
                 _initDatePicker();
                 _initVK();
-                _addSharedButton();
+                // _addSharedButton();
                 _siteTitleChange();
             };
 
